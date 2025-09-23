@@ -97,6 +97,7 @@
   <option value="nu5">NU(5)</option>
   <option value="maltsev">Maltsev</option>
   <option value="hm2">HM(2)</option>
+  <option value="s2">S(2)</option>
 </select>
     </div>
 
@@ -168,7 +169,7 @@
       { data: { id: 'HORN' }, position: { x: 350*s, y: 350*s } },
       { data: { id: 'NAE' }, position: { x: 300*s, y: 400*s } },
       { data: { id: 'HL1' }, position: { x: 300*s, y: 20*s }, classes:'helper' },
-      { data: { id: 'HL2' }, position: { x: 150*s, y: 215*s }, classes:'helper' },
+      { data: { id: 'HL2' }, position: { x: 146*s, y: 211*s }, classes:'helper' },
       { data: { id: 'HL3' }, position: { x: 185*s, y: 250*s }, classes:'helper' },
       { data: { id: 'HL4' }, position: { x: 300*s, y: 135*s }, classes:'helper' },
       { data: { id: 'HL5' }, position: { x: 450*s, y: 285*s }, classes:'helper' },
@@ -516,6 +517,7 @@ function applyColorSet(setName) {
     nu5: new Set(['C1', 'I2', 'C2','Cleq2','B2','B3','B4','Bleq','Bleq3','Bleq4']),     
     maltsev: new Set(['C1', 'I2','C2','LIN']), 
     hm2: new Set(['C1', 'I2','C2','LIN','B2','B3','B4','Binf']),  
+    s2: new Set(['C1', 'I2','B2','B3','B4','Binf','Bleq','Bleq3','Bleq4','Bleqinf','HORN']), 
   };
 
   cy.batch(() => {
@@ -540,7 +542,8 @@ const colorsetLatex = {
 x &= p_1(x,y,y) \\\\ \
 p_1(x,x,y) &= p_2(x,y,y) \\\\ \
 p_2(x,x,y) &= y \
-\\end{aligned} \\]"
+\\end{aligned} \\]",
+  s2: '\\[s(x,y)=s(y,x)\\]',
 };
 
 document.getElementById('colorSelect').addEventListener('change', e => {
