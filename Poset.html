@@ -131,7 +131,6 @@
         <div class="legend-color" style="background-color: rgba(255, 99, 71, 0.2); border:1px solid red"></div>
         NP Complete
       </div>
-      <hr/>
     </div>
 
     <div id="colorset-legend" style="margin-top:16px; display:none;">
@@ -512,9 +511,9 @@ cy.on('render', () => {
 
 function applyColorSet(setName) {
   const greenSets = {
-    majority: new Set(['C1', 'I2', 'C2','B2','Bleq']), 
-    nu4: new Set(['C1', 'I2', 'C2','B2','B3','Bleq','Bleq3']),   
-    nu5: new Set(['C1', 'I2', 'C2','B2','B3','B4','Bleq','Bleq3','Bleq4']),     
+    majority: new Set(['C1', 'I2', 'C2','Cleq2','B2','Bleq']), 
+    nu4: new Set(['C1', 'I2', 'C2','Cleq2','B2','B3','Bleq','Bleq3']),   
+    nu5: new Set(['C1', 'I2', 'C2','Cleq2','B2','B3','B4','Bleq','Bleq3','Bleq4']),     
     maltsev: new Set(['C1', 'I2','C2','LIN']), 
     hm2: new Set(['C1', 'I2','C2','LIN','B2','B3','B4','Binf']),  
   };
@@ -529,14 +528,19 @@ function applyColorSet(setName) {
       }
     });
   });
+  updateLabelLegend();
 }
 
 const colorsetLatex = {
-  majority: "\\(m(x,x,y)=m(x,y,x)=m(y,x,x)=x\\)",
-  nu4: "\\(m(x,x,x,y)=\\dots=m(y,x,x,x)=x\\)",
-  nu5: "\\(m(x,x,x,x,y)=\\dots=m(y,x,x,x,x)=x\\)",
-  maltsev: "\\(m(y,y,x)=x=m(x,y,y)\\)"
-  hm2: "\\(x=p_1(x,y,y),p_1(x,x,y)=p_2(x,y,y), p_2(x,x,y)=y\\)"
+  majority: "\\[m(x,x,y)=m(x,y,x)=m(y,x,x)=x\\]",
+  nu4: "\\[m(x,x,x,y)=\\dots=m(y,x,x,x)=x\\]",
+  nu5: "\\[m(x,x,x,x,y)=\\dots=m(y,x,x,x,x)=x\\]",
+  maltsev: "\\[m(y,y,x)=x=m(x,y,y)\\]",
+  hm2: "\\[ \\begin{aligned} \
+x &= p_1(x,y,y) \\\\ \
+p_1(x,x,y) &= p_2(x,y,y) \\\\ \
+p_2(x,x,y) &= y \
+\\end{aligned} \\]"
 };
 
 document.getElementById('colorSelect').addEventListener('change', e => {
