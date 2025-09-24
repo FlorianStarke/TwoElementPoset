@@ -29,7 +29,9 @@ async function createGraph() {
 
     clones = ["C1","I2", "B2", "B3", "B4", "Binf", "Bleq", "Bleq3", "Bleq4", "Bleqinf", "C2", "Cleq2", "LIN", "HORN", "NAE"]
     cloneFiles = clones.map((name) => "./clones/"+name+".json")
-    clonesData = await loadJsonFiles(cloneFiles)
+    clonesData = await loadJsonFiles(cloneFiles);
+
+    console.log(clonesData)
     
     // Label sets (latex strings)
     const labelSets = {
@@ -38,9 +40,11 @@ async function createGraph() {
     };
 
     for (clone in clones) {
-	labelSets["Structures"][clone] = clonesData["structureLabel"]
-	labelSets["Clones"][clone] = clonesData["cloneLabel"]
+	labelSets["Structures"][clones[clone]] = clonesData[clone]["structureLabel"]
+	labelSets["Clones"][clones[clone]] = clonesData[clone]["cloneLabel"]
     }
+
+    console.log(labelSets)
 
     // Label sets (latex strings)
     const legendLabelSets = {
