@@ -10,12 +10,19 @@
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
-    html,body { height:100%; margin:0; }
+    html, body { height:100%; margin:0; }
     body {
       display: flex;
+      flex-direction: column; /* stack main area + footer */
       height: 100vh;
-      margin: 0;
       font-family: sans-serif;
+    }
+
+    /* main content container: graph + legend side by side */
+    #main-content {
+      flex: 1;
+      display: flex;
+      min-height: 0;
       overflow: hidden;
     }
 
@@ -55,7 +62,7 @@
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      z-index: 2;
+      z-index: 0;
       pointer-events: none; /* let clicks through */
     }
 
@@ -81,73 +88,94 @@
     .legend-item { display:flex; align-items:center; margin-bottom:8px; }
     .legend-color { width:20px; height:20px; margin-right:8px; border:1px solid rgba(0,0,0,0.2); }
     button { margin-right:6px; }
+
+    /* footer */
+    #footer {
+      flex: 0 0 auto;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      border-top: 1px solid #ccc;
+      background: #f9f9f9;
+    }
   </style>
 </head>
 <body>
 
-  <div id="main">
-    <div id="controls">
-      <button id="btnToggleLabels">Switch to Clones</button>
-      <button id="btnToggleRegions">Hide Complexity Classes</button>
-      <label for="colorSelect">Choose H1 condition:</label>
-<select id="colorSelect">
-  <option value="none">None</option>
-  <option value="majority">Majority</option>
-  <option value="nu4">NU(4)</option>
-  <option value="nu5">NU(5)</option>
-  <option value="maltsev">Maltsev</option>
-  <option value="hm2">HM(2)</option>
-  <option value="s2">S(2)</option>
-</select>
+  <div id="main-content">
+    <div id="main">
+      <div id="controls">
+        <button id="btnToggleLabels">Switch to Clones</button>
+        <button id="btnToggleRegions">Hide Complexity Classes</button>
+        <label for="colorSelect">Choose H1 condition:</label>
+        <select id="colorSelect">
+          <option value="none">None</option>
+          <option value="majority">Majority</option>
+          <option value="nu4">NU(4)</option>
+          <option value="nu5">NU(5)</option>
+          <option value="maltsev">Maltsev</option>
+          <option value="hm2">HM(2)</option>
+          <option value="s2">S(2)</option>
+        </select>
+      </div>
+
+      <div id="cy-container">
+        <div id="cy"></div>
+        <!-- SVG is after #cy so it can be layered above it -->
+        <svg id="regions" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
     </div>
 
-    <div id="cy-container">
-      <div id="cy"></div>
-      <!-- SVG is after #cy so it can be layered above it -->
-      <svg id="regions" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div id="legend">
+      <div style="display: flex; flex-direction: column;">
+        <div id="region-legend">
+          <h3>Regions</h3>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: rgba(75, 192, 192, 0.2); border:1px solid green"></div>
+            L
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: rgba(54, 162, 235, 0.2); border:1px solid blue"></div>
+            NL Complete
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: rgba(153, 102, 255, 0.2); border:1px solid purple"></div>
+            Mod2L Complete
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: rgba(255, 159, 64, 0.2); border:1px solid orange"></div>
+            P Complete
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: rgba(255, 99, 71, 0.2); border:1px solid red"></div>
+            NP Complete
+          </div>
+        </div>
+
+        <div id="colorset-legend" style="margin-top:16px; display:none;">
+          <h3>H1 Condition</h3>
+          <span id="colorset-legend-text"></span>
+        </div>
+
+        <div id="label-legend">
+          <h3>Labels</h3>
+          <div id="label-legend-items"></div>
+        </div>
+      </div>
     </div>
   </div>
 
-<div id="legend">
-  <div style="display: flex; flex-direction: column;">
-    <div id="region-legend">
-      <h3>Regions</h3>
-      <div class="legend-item">
-        <div class="legend-color" style="background-color: rgba(75, 192, 192, 0.2); border:1px solid green"></div>
-        L
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background-color: rgba(54, 162, 235, 0.2); border:1px solid blue"></div>
-        NL Complete
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background-color: rgba(153, 102, 255, 0.2); border:1px solid purple"></div>
-        Mod2L Complete
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background-color: rgba(255, 159, 64, 0.2); border:1px solid orange"></div>
-        P Complete
-      </div>
-      <div class="legend-item">
-        <div class="legend-color" style="background-color: rgba(255, 99, 71, 0.2); border:1px solid red"></div>
-        NP Complete
-      </div>
-    </div>
+<footer id="footer">
+  Data from Albert Vucaj's paper <a href="https://arxiv.org/pdf/1905.12333v2" target="_blank">
+    Two-element Structures Modulo Primitive
+ Positive Constructability
+  </a>. 
+  Please report errors and suggestions to 
+  <a href="mailto:myemailadress">florian.starke@tu-dresden.de</a>.
+</footer>
 
-    <div id="colorset-legend" style="margin-top:16px; display:none;">
-      <h3>H1 Condition</h3>
-      <span id="colorset-legend-text"></span>
-    </div>
-
-    <div id="label-legend">
-      <h3>Labels</h3>
-      <div id="label-legend-items"></div>
-    </div>
-  </div>
-</div>
-
-
-  <script>
+    <script>
     // --------------------------
     // Data (nodes, edges, labels, regions)
     // --------------------------
@@ -291,7 +319,7 @@
       elements: { nodes: nodes, edges: edges },
       layout: { name: 'preset' },
       style: [
-        { selector: 'node', style: { 'background-color': '#0074D9', 'width': 20, 'height': 20 } },
+        { selector: 'node', style: { 'background-color': '#6699cc', 'width': 35, 'height': 35 } },
         { selector: 'edge', style: { 'curve-style': 'bezier', 'width': 2, 'line-color': '#878686' } }, // undirected
         { selector: 'edge.dashed', style: { 'line-style': 'dashed' } },
         { selector: 'node.helper', style: { 
@@ -328,11 +356,14 @@
 function updateLabelPositions() {
   cy.nodes().forEach(n => {
     // skip helper nodes
-    if (n.hasClass('helper')) return;
-
     const pos = n.renderedPosition();
     const div = labels[n.id()];
     if (!div) return;
+    if (n.hasClass('helper')) {
+      div.style.display = 'none'; // make sure it's visible
+      return;
+    }
+
     div.style.left = pos.x + 'px';
     div.style.top = (pos.y - 0) + 'px'; // a little above the node
     div.style.display = 'block'; // make sure it's visible
@@ -508,7 +539,7 @@ cy.on('render', () => {
 
     }
 
-    const defaultColor = '#0074D9'; // original node color
+    const defaultColor = '#6699cc'; // original node color
 
 function applyColorSet(setName) {
   const greenSets = {
@@ -526,7 +557,7 @@ function applyColorSet(setName) {
       if (setName === 'none') {
         n.style('background-color', defaultColor);
       } else {
-        n.style('background-color', greenSets[setName].has(n.id()) ? 'green' : 'red');
+        n.style('background-color', greenSets[setName].has(n.id()) ? '#66bb66' : '#cc6666');  // soft green / soft red
       }
     });
   });
