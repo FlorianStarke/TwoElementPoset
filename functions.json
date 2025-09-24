@@ -1,0 +1,9 @@
+{
+    "majority": "\\[\\text{Majority}\\]\\[m(x,x,y)=m(x,y,x)=m(y,x,x)=x\\]",
+    "nu4": "\\[\\text{4-ary near unanimity}\\]\\[m(x,x,x,y)=\\dots=m(y,x,x,x)=x\\]",
+    "nu5": "\\[\\text{5-ary near unanimity}\\]\\[m(x,x,x,x,y)=\\dots=m(y,x,x,x,x)=x\\]",
+    "maltsev": "\\[\\text{Maltsev}\\]\\[m(y,y,x)=x=m(x,y,y)\\]",
+    "hm2": "\\[\\text{Hagemann-Mitschke chain of length 2}\\]\\[ \\begin{aligned} \nx &= p_1(x,y,y) \\\\ \np_1(x,x,y) &= p_2(x,y,y) \\\\ \np_2(x,x,y) &= y \n\\end{aligned} \\]",
+    "s2": "\\[\\text{2-cyclic}\\]\\[s(x,y)=s(y,x)\\]",
+    "jon": "\\[\\text{Jonsson chain of length 3}\\]\\[ \\begin{aligned} \nx &= j_1(x,x,y) \\\\ \nj_1(x,y,y) &= j_2(x,y,y) \\\\ \nj_2(x,x,y) &= j_3(x,x,y)\\\\ \nj_3(x,y,y) &= y\\\\ \nx&=j_i(x,y,x) \n\\end{aligned} \\]"
+}
