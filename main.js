@@ -27,7 +27,7 @@ async function createGraph() {
     const nodes = graph.nodes;
     const edges = graph.edges;
 
-    clones = ["C1","I2", "B2", "B3", "Binf", "Bleq", "Bleq3", "Bleq4", "Bleqinf", "C2", "Cleq2", "LIN", "HORN", "NAE"]
+    clones = ["C1","I2", "B2", "B3", "B4", "Binf", "Bleq", "Bleq3", "Bleq4", "Bleqinf", "C2", "Cleq2", "LIN", "HORN", "NAE"]
     cloneFiles = clones.map((name) => "./clones/"+name+".json")
     clonesData = await loadJsonFiles(cloneFiles)
     
@@ -356,10 +356,13 @@ async function createGraph() {
 	}      
 	
 	for (clone in clones) {
+	    console.log(clonesData[clone]["functions"])
 	    for (func in clonesData[clone]["functions"]) {
-		greenSets[functions[func]].add(clones[clone]);
+		var f = clonesData[clone]["functions"][func];
+		greenSets[f].add(clones[clone]);
 	    }      
 	}
+	console.log(greenSets);
 	
 	cy.batch(() => {
 	    cy.nodes().forEach(n => {
