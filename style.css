@@ -1,0 +1,89 @@
+html, body { height:100%; margin:0; }
+body {
+    display: flex;
+    flex-direction: column; /* stack main area + footer */
+    height: 100vh;
+    font-family: sans-serif;
+}
+
+/* main content container: graph + legend side by side */
+#main-content {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* main (graph) area */
+#main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* important so legend doesn't get pushed off */
+}
+
+#controls {
+    padding: 6px;
+    border-bottom: 1px solid #ddd;
+    background: #fafafa;
+}
+
+#cy-container {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Cytoscape canvas */
+#cy {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;    /* base graph */
+    box-sizing: border-box;
+}
+
+/* SVG regions: above the cytoscape canvas, below labels */
+#regions {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none; /* let clicks through */
+}
+
+/* floating LaTeX labels */
+.label {
+    position: absolute;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-family: serif;
+    z-index: 3;  /* always on top */
+}
+
+/* legend fixed on the right */
+#legend {
+    flex: 0 0 500px; /* fixed width */
+    border-left: 1px solid #ccc;
+    padding: 12px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background: #fff;
+}
+.legend-item { display:flex; align-items:center; margin-bottom:8px; }
+.legend-color { width:20px; height:20px; margin-right:8px; border:1px solid rgba(0,0,0,0.2); }
+button { margin-right:6px; }
+
+/* footer */
+#footer {
+    flex: 0 0 auto;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #ccc;
+    background: #f9f9f9;
+}
