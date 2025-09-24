@@ -121,7 +121,7 @@ async function createGraph() {
 	elements: { nodes: nodes, edges: edges },
 	layout: { name: 'preset' },
 	style: [
-            { selector: 'node', style: { 'background-color': '#6699cc', 'width': 35, 'height': 35 } },
+            { selector: 'node', style: { 'background-color': '#6699cc', 'width': 30, 'height': 30 } },
             { selector: 'edge', style: { 'curve-style': 'bezier', 'width': 2, 'line-color': '#878686' } }, // undirected
             { selector: 'edge.dashed', style: { 'line-style': 'dashed' } },
             { selector: 'node.helper', style: { 
