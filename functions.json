@@ -5,5 +5,6 @@
     "maltsev": "\\[\\text{Maltsev}\\]\\[m(y,y,x)=x=m(x,y,y)\\]",
     "hm2": "\\[\\text{Hagemann-Mitschke chain of length 2}\\]\\[ \\begin{aligned} \nx &= p_1(x,y,y) \\\\ \np_1(x,x,y) &= p_2(x,y,y) \\\\ \np_2(x,x,y) &= y \n\\end{aligned} \\]",
     "s2": "\\[\\text{2-cyclic}\\]\\[s(x,y)=s(y,x)\\]",
-    "jon": "\\[\\text{Jonsson chain of length 3}\\]\\[ \\begin{aligned} \nx &= j_1(x,x,y) \\\\ \nj_1(x,y,y) &= j_2(x,y,y) \\\\ \nj_2(x,x,y) &= j_3(x,x,y)\\\\ \nj_3(x,y,y) &= y\\\\ \nx&=j_i(x,y,x) \n\\end{aligned} \\]"
+    "jon": "\\[\\text{Jonsson chain of length 3}\\]\\[\\begin{aligned} \nx &= j_1(x,x,y) \\\\ \nj_1(x,y,y) &= j_2(x,y,y) \\\\ \nj_2(x,x,y) &= j_3(x,x,y)\\\\ \nj_3(x,y,y) &= y\\\\ \nx&=j_i(x,y,x) \\end{aligned} \\]",
+    "wnu34": "\\[\\text{3-4 weak near unanimity}\\]\\[\\begin{aligned} p(x,x,x,y)&=\\dots=p(y,x,x,x)=\\\\ q(x,x,y)&=\\dots=q(y,x,x)\\end{aligned}\\]"
 }
