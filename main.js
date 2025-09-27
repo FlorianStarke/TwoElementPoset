@@ -49,30 +49,30 @@ async function createGraph() {
     // Label sets (latex strings)
     const legendLabelSets = {
 	Structures: {
-            C1: "\\(\\mathbb C_1=(\\{0\\},\\{(0,0)\\})\\)", 
-            I2: "\\(\\mathbb I_2=(\\{0,1\\},\\{(0,1)\\})\\)", 
-            B2: "\\(\\mathbb B_2=(\\{0,1\\},\\{0\\},\\{0,1\\}^2\\setminus\\{(0,0)\\})\\)", 
-            B3: "\\(\\mathbb B_3=(\\{0,1\\},\\{0\\},\\{0,1\\}^3\\setminus\\{(0,0,0)\\})\\)", 
-            B4: "\\(\\mathbb B_4=(\\{0,1\\},\\{0\\},\\{0,1\\}^4\\setminus\\{(0,0,0,0)\\})\\)",
-            Binf: "\\(\\mathbb B_\\infty=(\\{0,1\\},\\{0\\},\\{0,1\\}^n\\setminus\\{(0,\\dots,0)\\}\\colon n\\geq 2)\\)", 
-            Bleq: "\\(\\text{st-Con}=(\\{0,1\\},\\{0\\},\\{1\\},\\leq)\\)", 
-            Bleq3: "\\(\\mathbb B_{3}^{\\leq}=(\\mathbb B_3,\\leq)\\)",
-            Bleq4: "\\(\\mathbb B_{4}^{\\leq}=(\\mathbb B_4,\\leq)\\)", 
-            Bleqinf: "\\(\\mathbb B_{\\infty}^{\\leq}=(\\mathbb B_{\\infty},\\leq)\\)", 
-            C2: "\\(\\mathbb C_2=(\\{0,1\\},\\neq)\\)",
-            Cleq2: "\\(2\\mathbb S\\text{AT}=(\\{0,1\\},\\{0\\},\\neq,\\leq)\\)", 
-            LIN: "\\(3\\mathbb L\\text{IN}_2=(\\{0,1\\},\\{0\\},x+y+z=1)\\)", 
-            HORN: "\\(\\mathbb H\\text{ORN}=(\\{0,1\\},\\{0\\},\\{1\\},(x\\wedge y)\\Rightarrow z)\\)",
-            NAE: "\\(1\\text{IN}3=(\\{0,1\\},\\{(0,0,1),(0,1,0),(1,0,0)\\})\\)"
+            C1: "\\mathbb C_1=(\\{0\\},\\{(0,0)\\})", 
+            I2: "\\mathbb I_2=(\\{0,1\\},\\{(0,1)\\})", 
+            B2: "\\mathbb B_2=(\\{0,1\\},\\{0\\},\\{0,1\\}^2\\setminus\\{(0,0)\\})", 
+            B3: "\\mathbb B_3=(\\{0,1\\},\\{0\\},\\{0,1\\}^3\\setminus\\{(0,0,0)\\})", 
+            B4: "\\mathbb B_4=(\\{0,1\\},\\{0\\},\\{0,1\\}^4\\setminus\\{(0,0,0,0)\\})",
+            Binf: "\\mathbb B_\\infty=(\\{0,1\\},\\{0\\},\\{0,1\\}^n\\setminus\\{(0,\\dots,0)\\}\\colon n\\geq 2)", 
+            Bleq: "\\text{st-Con}=(\\{0,1\\},\\{0\\},\\{1\\},\\leq)", 
+            Bleq3: "\\mathbb B_{3}^{\\leq}=(\\mathbb B_3,\\leq)",
+            Bleq4: "\\mathbb B_{4}^{\\leq}=(\\mathbb B_4,\\leq)", 
+            Bleqinf: "\\mathbb B_{\\infty}^{\\leq}=(\\mathbb B_{\\infty},\\leq)", 
+            C2: "\\mathbb C_2=(\\{0,1\\},\\neq)",
+            Cleq2: "2\\mathbb S\\text{AT}=(\\{0,1\\},\\{0\\},\\neq,\\leq)", 
+            LIN: "3\\mathbb L\\text{IN}_2=(\\{0,1\\},\\{0\\},x+y+z=1)", 
+            HORN: "\\mathbb H\\text{ORN}=(\\{0,1\\},\\{0\\},\\{1\\},(x\\wedge y)\\Rightarrow z)",
+            NAE: "1\\text{IN}3=(\\{0,1\\},\\{(0,0,1),(0,1,0),(1,0,0)\\})"
 	},
 	Clones: {
-            O : "\\(0(x)=0\\)",
-            m: "\\(m(x,y,z)=x\\oplus y\\oplus z\\)",
-            q: "\\(q(x,y,z)=x\\wedge (y\\Leftrightarrow z)\\)",
-            d3: "\\(d_3=\\text{the unique majority on }\\{0,1\\}\\)",
-            dn: "\\(d_n(x_1,\\dots,x_n)=\\bigvee_{i=1}^n\\bigwedge_{j\\neq i} x_j\\)",
-            //dn: "\\(d_n(x_1,\\dots,x_n)=\\bigvee_{i=1}^n(x_1\\wedge\\dots\\wedge x_{i-1}\\wedge x_{i+1}\\wedge\\dots\\wedge x_n))\\)",
-            p: "\\(p(x,y,z)=x\\wedge (y\\vee z)\\)"
+            O : "0(x)=0",
+            m: "m(x,y,z)=x\\oplus y\\oplus z",
+            q: "q(x,y,z)=x\\wedge (y\\Leftrightarrow z)",
+            d3: "d_3=\\text{the unique majority on }\\{0,1\\}",
+            dn: "d_n(x_1,\\dots,x_n)=\\bigvee_{i=1}^n\\bigwedge_{j\\neq i} x_j",
+            //dn: "d_n(x_1,\\dots,x_n)=\\bigvee_{i=1}^n(x_1\\wedge\\dots\\wedge x_{i-1}\\wedge x_{i+1}\\wedge\\dots\\wedge x_n))",
+            p: "p(x,y,z)=x\\wedge (y\\vee z)"
 	}
     };
     let currentSet = 'Structures';
@@ -145,7 +145,7 @@ async function createGraph() {
 
     
     // --------------------------
-    // HTML labels (MathJax-friendly)
+    // HTML labels (KaTeX-friendly)
     // --------------------------
     const cyContainer = document.getElementById('cy-container');
     const labels = {};
@@ -155,7 +155,9 @@ async function createGraph() {
 	div.className = 'label';
 	div.style.zIndex = 3;
 	const id = n.data.id;
-	div.innerHTML = labelSets[currentSet][id] || id;
+	katex.render(labelSets[currentSet][id] || id, div, {
+	    throwOnError: false
+	});
 	cyContainer.appendChild(div);
 	labels[id] = div;
     });
@@ -175,11 +177,6 @@ async function createGraph() {
 	    div.style.top = (pos.y - 0) + 'px'; // a little above the node
 	    div.style.display = 'block'; // make sure it's visible
 	});
-	
-	// typeset the labels that may contain LaTeX
-	if (window.MathJax && MathJax.typesetPromise) {
-	    MathJax.typesetPromise().catch(err => console.warn('MathJax error:', err));
-	}
     }
     
     cy.on('render', updateLabelPositions);
@@ -242,15 +239,12 @@ async function createGraph() {
 		div.appendChild(colorBox);
 	    }
 	    const labelSpan = document.createElement('span');
-	    labelSpan.innerHTML = set[id]; // LaTeX code
+	    katex.render(set[id], labelSpan, {
+		throwOnError: false
+	    });
 
 	    div.appendChild(labelSpan);
 	    container.appendChild(div);
-	}
-
-	// Trigger MathJax to render
-	if (window.MathJax && MathJax.typesetPromise) {
-	    MathJax.typesetPromise().catch(err => console.warn('MathJax error:', err));
 	}
     }
 
@@ -320,12 +314,13 @@ async function createGraph() {
     function toggleLabels() {
 	currentSet = (currentSet === 'Structures') ? 'Clones' : 'Structures';
 	for (const id in labels) {
-            labels[id].innerHTML = labelSets[currentSet][id] || id;
+	    katex.render(labelSets[currentSet][id] || id, labels[id], {
+		throwOnError: false
+	    });
 	}
 	const btn = document.getElementById('btnToggleLabels');
 	btn.textContent = currentSet === 'Structures' ? 'Switch to Clones' : 'Switch to Structures';
 	// request re-typeset
-	if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
 	updateLabelLegend();
 
     }
@@ -398,10 +393,10 @@ async function createGraph() {
 	    legendText.innerHTML = '';
 	} else {
 	    legendDiv.style.display = 'block';
-	    legendText.innerHTML = colorsetLatex[setName] || '';
-	    if (window.MathJax && MathJax.typesetPromise) {
-		MathJax.typesetPromise().catch(err => console.warn('MathJax error:', err));
-	    }
+	    katex.render(colorsetLatex[setName] || '', legendText, {
+		throwOnError: false,
+		displayMode: true
+	    });
 	}
     });
 
